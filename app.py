@@ -5,9 +5,33 @@ from __future__ import annotations
 
 import base64
 import io
+import subprocess
 import sys
 import types
 import zlib
+
+
+def _ensure_openpyxl() -> None:
+    try:
+        import openpyxl  # noqa: F401
+        return
+    except ImportError:
+        pass
+    subprocess.run(
+        [
+            sys.executable,
+            "-m",
+            "pip",
+            "install",
+            "--disable-pip-version-check",
+            "-q",
+            "openpyxl>=3.1",
+        ],
+        check=False,
+    )
+
+
+_ensure_openpyxl()
 
 
 def _dec(s: str) -> str:
