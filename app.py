@@ -611,9 +611,19 @@ def _bootstrap_bundled() -> None:
     _load("confronto_gerencial", _dec(_B_CG), "")
 
 
-_bootstrap_bundled()
-
 import streamlit as st
+
+try:
+    import openpyxl  # noqa: F401
+except ImportError:
+    st.set_page_config(page_title="Detetive Fiscal", page_icon="🕵️", layout="wide")
+    st.error(
+        "Falta o pacote **openpyxl**. Coloque `openpyxl>=3.1` no **requirements.txt** na raiz do "
+        "repositório (Streamlit Cloud → *Reboot*). Em local: `pip install openpyxl`."
+    )
+    st.stop()
+
+_bootstrap_bundled()
 
 import detetive_core
 
@@ -667,11 +677,6 @@ def main():
             type=["txt", "xlsx"],
             key="sped_cliente",
         )
-
-    st.info(
-        "Dois primeiros botões: um Excel **só** por SPED (C190+D190 quando houver). "
-        "Terceiro: comparativo **NF-e + CT-e** → `Detetive_sped.xlsx`."
-    )
 
     b1, b2, b3 = st.columns(3)
     with b1:
