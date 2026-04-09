@@ -6,7 +6,8 @@ No mesmo repositório (pasta deste ficheiro):
   - spedlib/   (pacote completo)
 
 Instalação (ex.: Streamlit Cloud):
-  pip install -r requirements-streamlit.txt
+  O Cloud instala por omissão `requirements.txt` na raiz — deve incluir `xlsxwriter` e `streamlit`.
+  Alternativa: em Advanced settings → Python dependencies, apontar para `requirements-streamlit.txt`.
 
 Execução local:
   streamlit run app.py
@@ -23,6 +24,17 @@ import streamlit as st
 _ROOT = Path(__file__).resolve().parent
 if str(_ROOT) not in sys.path:
     sys.path.insert(0, str(_ROOT))
+
+try:
+    import xlsxwriter  # noqa: F401 — exigido por detetive_core (ExcelWriter engine="xlsxwriter")
+except ImportError:
+    st.error(
+        "Falta o pacote **xlsxwriter**. Na raiz do repositório, o ficheiro **requirements.txt** "
+        "deve conter `xlsxwriter>=3.1` (o Streamlit Cloud usa esse ficheiro por omissão). "
+        "Ou, em *Manage app* → Advanced settings → Python dependencies, use `requirements-streamlit.txt`. "
+        "Guarde, reinicie a app e faça *Reboot* se necessário."
+    )
+    st.stop()
 
 import detetive_core  # noqa: E402
 
