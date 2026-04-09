@@ -613,16 +613,6 @@ def _bootstrap_bundled() -> None:
 
 import streamlit as st
 
-try:
-    import openpyxl  # noqa: F401
-except ImportError:
-    st.set_page_config(page_title="Detetive Fiscal", page_icon="🕵️", layout="wide")
-    st.error(
-        "Falta o pacote **openpyxl**. Coloque `openpyxl>=3.1` no **requirements.txt** na raiz do "
-        "repositório (Streamlit Cloud → *Reboot*). Em local: `pip install openpyxl`."
-    )
-    st.stop()
-
 _bootstrap_bundled()
 
 import detetive_core
@@ -657,9 +647,6 @@ def main():
     _css_rosa()
 
     st.title("🕵️ Detetive Fiscal")
-    st.caption(
-        "Comparativo de dois SPED: Excel por ficheiro (C190+D190) e relatório único NF-e + CT-e."
-    )
 
     st.markdown("### Ficheiros")
     c1, c2 = st.columns(2)
