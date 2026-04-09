@@ -1,5 +1,4 @@
-# Streamlit + motor Detetive (sem Django).
-# Se no Cloud não configurares outro ficheiro, coloca as mesmas linhas em requirements.txt na raiz.
+django>=4.2,<6
 streamlit>=1.28
 pandas>=2.0
 openpyxl>=3.1
