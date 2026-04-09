@@ -1,17 +1,4 @@
-"""
-Detetive Fiscal — interface Streamlit (dois SPED: Excel por ficheiro + comparativo NF-e/CT-e).
-
-No mesmo repositório (pasta deste ficheiro):
-  - detetive_core.py
-  - spedlib/   (pacote completo)
-
-Instalação (ex.: Streamlit Cloud):
-  O Cloud instala por omissão `requirements.txt` na raiz — deve incluir `xlsxwriter` e `streamlit`.
-  Alternativa: em Advanced settings → Python dependencies, apontar para `requirements-streamlit.txt`.
-
-Execução local:
-  streamlit run app.py
-"""
+"""Detetive Fiscal — Streamlit (dois SPED)."""
 
 from __future__ import annotations
 
@@ -24,17 +11,6 @@ import streamlit as st
 _ROOT = Path(__file__).resolve().parent
 if str(_ROOT) not in sys.path:
     sys.path.insert(0, str(_ROOT))
-
-try:
-    import xlsxwriter  # noqa: F401 — exigido por detetive_core (ExcelWriter engine="xlsxwriter")
-except ImportError:
-    st.error(
-        "Falta o pacote **xlsxwriter**. Na raiz do repositório, o ficheiro **requirements.txt** "
-        "deve conter `xlsxwriter>=3.1` (o Streamlit Cloud usa esse ficheiro por omissão). "
-        "Ou, em *Manage app* → Advanced settings → Python dependencies, use `requirements-streamlit.txt`. "
-        "Guarde, reinicie a app e faça *Reboot* se necessário."
-    )
-    st.stop()
 
 import detetive_core  # noqa: E402
 
